@@ -1,9 +1,16 @@
 package gov.counselling.collageCounselling.Entity;
 
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class Collage {
     private long id;
     private String  name;
     private long seat;
+
+     public Collage(){
+     }
 
     public Collage(long id, String name, long seat) {
         this.id = id;

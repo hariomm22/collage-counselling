@@ -6,11 +6,14 @@ package gov.counselling.collageCounselling.Controller;
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.web.bind.annotation.*;
 
- import java.util.*;
+ import java.util.ArrayList;
+ import java.util.HashMap;
+ import java.util.List;
+ import java.util.Map;
 
 @RestController
 @RequestMapping("counselling")
-public class Counselling {
+public class  Counselling{
 
  List<Collage> collageList = new ArrayList<>();
 
@@ -20,9 +23,9 @@ public class Counselling {
  StudentService studentService;
 
  public Counselling(){
-  collageList.add(new Collage(1,"IPS",4));
-  collageList.add(new Collage(1,"SDB",6));
-  collageList.add(new Collage(1,"GSITS",3));
+  collageList.add(new Collage(101,"IPS",4));
+  collageList.add(new Collage(102,"SDB",6));
+  collageList.add(new Collage(103,"GSITS",3));
  }
 
  @GetMapping
@@ -43,11 +46,15 @@ public class Counselling {
   return studentService.generateRank(new ArrayList<>(studentList.values()));
  }
 
+ @GetMapping("/allotement")
+ public List<Student> allotementList(){
+  return studentService.createAllotement(new ArrayList<>(studentList.values()),collageList);
+ }
+
  @DeleteMapping("id/{id}")
  public  boolean deleteStudent(@PathVariable long id){
     studentList.remove(id);
     return true;
  }
-
 
 }

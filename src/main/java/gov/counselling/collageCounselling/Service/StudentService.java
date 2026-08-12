@@ -1,10 +1,11 @@
 package gov.counselling.collageCounselling.Service;
 
+import gov.counselling.collageCounselling.Entity.Collage;
 import gov.counselling.collageCounselling.Entity.Student;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class StudentService {
@@ -18,8 +19,33 @@ public class StudentService {
                 rank = i + 1;
             }
             studentList.get(i).setRank(rank);
-            System.out.println("Obj : "+ studentList.get(i));
+         }
+        return studentList;
+    }
+
+    public List<Student> createAllotement(List<Student> studentList, List<Collage> collageList) {
+
+        studentList.sort(Comparator.comparingLong(Student::getRank));
+        for(Student student : studentList){
+            for(int id : student.getChoice()){
+                Collage currentCllg = getCollageById(id,collageList);
+                 if (currentCllg.getSeat()>=1){
+                    currentCllg.setSeat(currentCllg.getSeat()-1);
+                    student.setAllocate(currentCllg);
+                    break;
+                }
+            }
         }
         return studentList;
     }
+
+    public Collage getCollageById(int id,List<Collage> collageList){
+        for(Collage collage : collageList){
+            if(collage.getId()==id){
+                 return collage;
+             }
+        }
+        return null;
+    }
+
 }

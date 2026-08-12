@@ -6,7 +6,7 @@ public class Student {
     private long id;
     private String  name;
     private double score;
-    //private List<Collage>  choice;
+    private List<Integer>  choice;
     private long rank;
     private Collage allocate;
 
@@ -18,7 +18,7 @@ public class Student {
         this.id = id;
         this.name = name;
         this.score = score;
-//        this.choice = choice;
+        this.choice = null;
         this.allocate=null;
         this.rank=0;
     }
@@ -36,7 +36,6 @@ public class Student {
         this.rank = rank;
     }
 
-
     public String getName() {
         return name;
     }
@@ -49,7 +48,7 @@ public class Student {
         return score;
     }
 
-    public double getRank() {
+    public long getRank() {
         return rank;
     }
 
@@ -59,6 +58,13 @@ public class Student {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public List<Integer> getChoice() {
+            return choice;
+        }
+    public void setChoice(List<Integer> choice) {
+        this.choice = choice;
     }
 
     @Override
@@ -71,11 +77,4 @@ public class Student {
                 ", allocate=" + allocate +
                 '}';
     }
-//    public List<Collage> getChoice() {
-//        return choice;
-//    }
-
-//    public void setChoice(List<Collage> choice) {
-//        this.choice = choice;
-//    }
 }

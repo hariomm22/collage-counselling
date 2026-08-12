@@ -1,6 +1,5 @@
 package gov.counselling.collageCounselling.Entity;
 
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,12 +21,12 @@ public class Collage {
         return id;
     }
 
-    public long getName() {
-        return id;
+    public String getName() {
+        return name;
     }
 
     public long getSeat() {
-        return id;
+        return seat;
     }
 
     public void setId(long id) {
@@ -40,5 +39,14 @@ public class Collage {
 
     public void setSeat(long seat) {
         this.seat = seat;
+    }
+
+    @Override
+    public String toString() {
+        return "Collage{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", seat=" + seat +
+                '}';
     }
 }

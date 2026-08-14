@@ -30,14 +30,13 @@ public class  Counselling{
 
  @GetMapping
  public List<Student> getStudentList() {
-  return new ArrayList<>(studentList.values());
+  return studentService.getAllStudent();
  }
 
  @PostMapping
- public boolean createStudent(@RequestBody Student student){
+ public Student createStudent(@RequestBody Student student){
+      return studentService.createStudent(student);
 
-      studentList.put(student.getId(),student);
-      return true;
  }
 
  @GetMapping("/rank")
@@ -53,8 +52,7 @@ public class  Counselling{
 
  @DeleteMapping("id/{id}")
  public  boolean deleteStudent(@PathVariable long id){
-    studentList.remove(id);
-    return true;
+    return studentService.deleteStudent(id);
  }
 
 }

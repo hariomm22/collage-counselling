@@ -1,8 +1,15 @@
 package gov.counselling.collageCounselling.Entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
+@Document(collection = "students")
 public class Student {
+    @Id
     private long id;
     private String  name;
     private double score;
@@ -13,15 +20,15 @@ public class Student {
     public Student(){
 
      }
-
-    public Student(long id, String name, double score) {
-        this.id = id;
-        this.name = name;
-        this.score = score;
-        this.choice = null;
-        this.allocate=null;
-        this.rank=0;
-    }
+//
+//    public Student(long id, String name, double score,List<Integer> choice) {
+//        this.id = id;
+//        this.name = name;
+//        this.score = score;
+//        this.choice = choice;
+//        this.allocate=null;
+//        this.rank=0;
+//    }
 
 
     public long getId() {

@@ -2,6 +2,8 @@ package gov.counselling.collageCounselling.Service;
 
 import gov.counselling.collageCounselling.Entity.Collage;
 import gov.counselling.collageCounselling.Entity.Student;
+import gov.counselling.collageCounselling.Repo.StudentRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -9,6 +11,10 @@ import java.util.List;
 
 @Service
 public class StudentService {
+
+    @Autowired
+    StudentRepo studentRepo;
+
     public List<Student> generateRank(List<Student> studentList) {
 
         studentList.sort(Comparator.comparingDouble(Student::getScore).reversed());
@@ -46,6 +52,22 @@ public class StudentService {
              }
         }
         return null;
+    }
+
+    public Student createStudent(Student student){
+        return studentRepo.save(student);
+    }
+
+    public boolean deleteStudent(long id){
+        if(studentRepo.existsById(id)) {
+            studentRepo.deleteById(id);
+            return true;
+        }
+         return false;
+    }
+
+    public List<Student> getAllStudent(){
+        return studentRepo.findAll();
     }
 
 }

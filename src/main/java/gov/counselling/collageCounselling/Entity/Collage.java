@@ -1,9 +1,13 @@
 package gov.counselling.collageCounselling.Entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
 @Component
+@Document(collection = "collages")
 public class Collage {
+    @Id
     private long id;
     private String  name;
     private long seat;

@@ -1,4 +1,4 @@
-package gov.counselling.collageCounselling.Controller;
+package gov.counselling.collagecounselling.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,4 +12,5 @@ public class HealthCheck {
     public String getHealth() {
         return "ok..";
     }
+
 }

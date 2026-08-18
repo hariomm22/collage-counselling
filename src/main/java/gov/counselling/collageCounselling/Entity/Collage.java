@@ -1,52 +1,30 @@
-package gov.counselling.collageCounselling.Entity;
+package gov.counselling.collagecounselling.entity;
 
-import org.springframework.stereotype.Component;
 
-@Component
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Data
+@NoArgsConstructor
+@Document
 public class Collage {
-    private long id;
+
+    @Id
+    private String id;
+    @Indexed(unique = true)
     private String  name;
-    private long seat;
+    @Indexed(unique = true)
+    private String code;
+    private Long seat;
+    private CollageStatus status;
 
-     public Collage(){
-     }
-
-    public Collage(long id, String name, long seat) {
-        this.id = id;
-        this.name = name;
-        this.seat = seat;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getSeat() {
-        return seat;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSeat(long seat) {
-        this.seat = seat;
-    }
-
-    @Override
-    public String toString() {
-        return "Collage{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", seat=" + seat +
-                '}';
+    public enum CollageStatus {
+        ACTIVE,
+        INACTIVE,
+        SUSPENDED
     }
 }

@@ -1,4 +1,4 @@
-package gov.counselling.collageCounselling;
+package gov.counselling.collagecounselling;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

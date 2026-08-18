@@ -1,80 +1,28 @@
-package gov.counselling.collageCounselling.Entity;
+package gov.counselling.collagecounselling.entity;
+
+import com.mongodb.lang.NonNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@Document
 public class Student {
-    private long id;
+    @Id
+    private String id;
+    @NonNull
     private String  name;
+    private String userName;
+    private String password;
     private double score;
-    private List<Integer>  choice;
+    @DBRef
+    private List<Collage>  choice;
     private long rank;
-    private Collage allocate;
-
-    public Student(){
-
-     }
-
-    public Student(long id, String name, double score) {
-        this.id = id;
-        this.name = name;
-        this.score = score;
-        this.choice = null;
-        this.allocate=null;
-        this.rank=0;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setRank(long rank) {
-        this.rank = rank;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
-    public long getRank() {
-        return rank;
-    }
-
-    public void setAllocate(Collage allocate){this.allocate=allocate;}
-
-    public Collage getAllocate(){return allocate;}
-
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public List<Integer> getChoice() {
-            return choice;
-        }
-    public void setChoice(List<Integer> choice) {
-        this.choice = choice;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", score=" + score +
-                ", rank=" + rank +
-                ", allocate=" + allocate +
-                '}';
-    }
+    private Collage allocateCollage;
+    private boolean status;
 }

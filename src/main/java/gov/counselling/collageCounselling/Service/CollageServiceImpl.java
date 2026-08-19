@@ -7,12 +7,15 @@ import gov.counselling.collagecounselling.exception.RecordNotFoundException;
 import gov.counselling.collagecounselling.exception.RecordAlreadyExistsException;
 import gov.counselling.collagecounselling.mapper.CollageMapper;
 import gov.counselling.collagecounselling.reposistory.CollageReposistory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class CollageServiceImpl implements CollageService {
 
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final CollageMapper collageMapper;
     private final CollageReposistory collageReposistory;
     public CollageServiceImpl(CollageMapper collageMapper, CollageReposistory collageReposistory) {
@@ -45,6 +48,8 @@ public class CollageServiceImpl implements CollageService {
         Collage collage = collageMapper.toEnitiy(collageRequest);
         collage.setStatus(Collage.CollageStatus.ACTIVE);
         collage.setCode("C"+collage.hashCode());
+        String encodedPassword = passwordEncoder.encode(collageRequest.getPassword());
+        collage.setPassword(encodedPassword);
         collage = collageReposistory.save(collage);
         return collageMapper.toResponse(collage);
     }

@@ -19,7 +19,6 @@ public class CollageMapper {
 
         collage.setName(request.getName());
         collage.setSeat(request.getSeat());
-
         return collage;
     }
 

@@ -11,6 +11,7 @@ import java.util.List;
 public class CollageRequest {
         private String  name;
         private Long seat;
+        private String password;
         private Collage.CollageStatus status;
 }
 

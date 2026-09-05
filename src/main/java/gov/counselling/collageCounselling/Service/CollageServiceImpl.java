@@ -15,12 +15,25 @@ import java.util.List;
 @Service
 public class CollageServiceImpl implements CollageService {
 
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
+
     private final CollageMapper collageMapper;
+
     private final CollageReposistory collageReposistory;
-    public CollageServiceImpl(CollageMapper collageMapper, CollageReposistory collageReposistory) {
+
+    private final UserAccountServiceImpl userAccountService;
+
+
+
+
+    public CollageServiceImpl(CollageMapper collageMapper,
+                              CollageReposistory collageReposistory,
+                              PasswordEncoder passwordEncoder,
+                              UserAccountServiceImpl userAccountService) {
         this.collageMapper = collageMapper;
         this.collageReposistory = collageReposistory;
+        this.passwordEncoder = passwordEncoder;
+        this.userAccountService = userAccountService;
     }
 
 
@@ -51,6 +64,7 @@ public class CollageServiceImpl implements CollageService {
         String encodedPassword = passwordEncoder.encode(collageRequest.getPassword());
         collage.setPassword(encodedPassword);
         collage = collageReposistory.save(collage);
+        userAccountService.CreateUserAccount(collage);
         return collageMapper.toResponse(collage);
     }
 
@@ -73,6 +87,7 @@ public class CollageServiceImpl implements CollageService {
                 collage.setStatus(collageRequest.getStatus());
             }
             collageReposistory.save(collage);
+
             return collageMapper.toResponse(collage);
         }
         throw new RecordNotFoundException("Collage not found with code "+code);

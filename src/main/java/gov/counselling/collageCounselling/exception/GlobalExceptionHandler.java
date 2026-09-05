@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<String> handleInvalidCredentials(
-            Exception ex) {
+            InvalidCredentialsException  ex) {
 
         ex.printStackTrace();
 

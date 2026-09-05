@@ -19,7 +19,7 @@ public class CollageController {
         this.collageService = collageService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<CollageResponse> createStudent(@RequestBody CollageRequest collageRequest){
          CollageResponse collageResponse = collageService.createCollage(collageRequest);
          return ResponseEntity.status(HttpStatus.CREATED).body(collageResponse);

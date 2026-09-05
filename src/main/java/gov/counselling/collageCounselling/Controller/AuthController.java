@@ -1,7 +1,7 @@
 package gov.counselling.collagecounselling.controller;
 
-import gov.counselling.collagecounselling.dto.CollageLoginRequest;
-import gov.counselling.collagecounselling.service.JwtAuthService;
+import gov.counselling.collagecounselling.dto.UserAccountLoginRequest;
+import gov.counselling.collagecounselling.security.JwtAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,20 +20,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public String authLogin(
-            @RequestBody CollageLoginRequest request
+            @RequestBody UserAccountLoginRequest request
     ){
 
         System.out.println("Inside authlogin");
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                request.getCode(), request.getPassword()
+                request.getUserName(), request.getPassword()
         );
         System.out.println("is authenticated "+authentication.isAuthenticated());
 
 
         Authentication authenticated = authenticationManager.authenticate(authentication);
 
-        System.out.println("is authenticated "+authenticated.isAuthenticated());
+        System.out.println("is authenticated "+authenticated.getAuthorities().toString());
 
         return jwtAuthService.generateToken(authenticated);
     }

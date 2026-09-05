@@ -1,4 +1,4 @@
-package gov.counselling.collagecounselling.service;
+package gov.counselling.collagecounselling.security;
 
 
 import io.jsonwebtoken.Claims;

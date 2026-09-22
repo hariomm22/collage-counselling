@@ -75,7 +75,10 @@ public class JwtFilterConfig extends OncePerRequestFilter {
 
         } catch (JwtException | IllegalArgumentException e) {
 
+            System.out.println("JWT FILTER CATCH");
             throw new InvalidCredentialsException("Invalid Token/Credentials");
+
+
         }
         filterChain.doFilter(request, response);
     }

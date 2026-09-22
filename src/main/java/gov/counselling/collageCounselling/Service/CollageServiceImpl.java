@@ -7,6 +7,7 @@ import gov.counselling.collagecounselling.exception.RecordNotFoundException;
 import gov.counselling.collagecounselling.exception.RecordAlreadyExistsException;
 import gov.counselling.collagecounselling.mapper.CollageMapper;
 import gov.counselling.collagecounselling.reposistory.CollageReposistory;
+import gov.counselling.collagecounselling.reposistory.UserAccountReposistory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,17 +24,21 @@ public class CollageServiceImpl implements CollageService {
 
     private final UserAccountServiceImpl userAccountService;
 
+    private final UserAccountReposistory userAccountReposistory;
+
 
 
 
     public CollageServiceImpl(CollageMapper collageMapper,
                               CollageReposistory collageReposistory,
                               PasswordEncoder passwordEncoder,
-                              UserAccountServiceImpl userAccountService) {
+                              UserAccountServiceImpl userAccountService,
+                              UserAccountReposistory userAccountReposistory) {
         this.collageMapper = collageMapper;
         this.collageReposistory = collageReposistory;
         this.passwordEncoder = passwordEncoder;
         this.userAccountService = userAccountService;
+        this.userAccountReposistory = userAccountReposistory;
     }
 
 
@@ -93,11 +98,13 @@ public class CollageServiceImpl implements CollageService {
         throw new RecordNotFoundException("Collage not found with code "+code);
     }
 
+
     @Override
     public boolean deleteCollage(String code) {
 
         if(collageReposistory.existsByCode(code)){
             collageReposistory.deleteByCode(code);
+            userAccountReposistory.deleteByUserName(code);
             return true;
         }
         throw new RecordAlreadyExistsException("Collage not found with code "+code);

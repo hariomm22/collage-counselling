@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,19 +18,33 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private  final JwtFilterConfig jwtFilterConfig;
 
+
+
     public SecurityConfig(JwtFilterConfig jwtFilterConfig){
+
         this.jwtFilterConfig = jwtFilterConfig;
+
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity ,
-                                                   AuthenticationProvider provider){
+                                                   AuthenticationProvider provider,
+                                                   CustomAuthenticationEntryPoint authenticationEntryPoint,
+                                                   CustomAccessDeniedHandler accessDeniedHandler
+                                                   ){
         HttpSecurity httpSecurity1 = httpSecurity
                 .csrf(csrf -> csrf.disable())
+
+                .exceptionHandling( exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler)
+                )
+
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS
@@ -40,7 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/health-check/**","/collage/register","/student/register",
                                 "/auth/login").permitAll()
-                        .requestMatchers("/collage/**").hasRole("COLLEGE")
+                        .requestMatchers("/collage/**").hasAnyRole("COLLAGE","ADMIN")
                         .requestMatchers("/student/**").hasRole("STUDENT")
                         .anyRequest().authenticated())
                 .addFilterBefore(

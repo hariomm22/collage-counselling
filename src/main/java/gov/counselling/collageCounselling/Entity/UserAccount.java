@@ -10,8 +10,9 @@ import java.util.List;
 @Document(collection = "user_accounts")
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class UserAccount {
+public class UserAccount extends BaseEntity{
 
     @Id
     private String id;

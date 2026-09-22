@@ -1,6 +1,8 @@
 package gov.counselling.collagecounselling.mapper;
 
-import gov.counselling.collagecounselling.dto.StudentRequest;
+
+import gov.counselling.collagecounselling.dto.CollageResponse;
+import gov.counselling.collagecounselling.dto.CurrentUserAccountReponse;
 import gov.counselling.collagecounselling.entity.Collage;
 import gov.counselling.collagecounselling.entity.Student;
 import gov.counselling.collagecounselling.entity.UserAccount;
@@ -42,4 +44,20 @@ public class UserAccountMapper {
 
         return userAccount;
     }
+
+    public CurrentUserAccountReponse toCurrentUserAccountResponse(
+            UserAccount userAccount,
+            Object currentAccount){
+
+        CurrentUserAccountReponse currentUserAccountReponse = new CurrentUserAccountReponse();
+
+        currentUserAccountReponse.setId(userAccount.getId());
+        currentUserAccountReponse.setUserName(userAccount.getUserName());
+        currentUserAccountReponse.setUserType(userAccount.getUserType());
+        currentUserAccountReponse.setRole(userAccount.getRole());
+        currentUserAccountReponse.setProfile(currentAccount);
+
+        return currentUserAccountReponse;
+    }
+
 }

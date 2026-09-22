@@ -1,9 +1,8 @@
 package gov.counselling.collagecounselling.controller;
 
-import gov.counselling.collagecounselling.dto.CollageRequest;
-import gov.counselling.collagecounselling.dto.CollageResponse;
 import gov.counselling.collagecounselling.dto.StudentRequest;
 import gov.counselling.collagecounselling.dto.StudentResponse;
+import gov.counselling.collagecounselling.service.StudentService;
 import gov.counselling.collagecounselling.service.StudentServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("student")
 public class StudentController {
 
-    private final StudentServiceImpl studentService;
+    private final StudentService studentService;
 
-    public StudentController(StudentServiceImpl studentService){
+    public StudentController(StudentService studentService){
         this.studentService =studentService;
     }
 

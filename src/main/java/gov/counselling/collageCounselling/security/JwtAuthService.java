@@ -21,8 +21,11 @@ public class JwtAuthService {
     @Value("${jwt.secret}")
     private String secret;
 
+
     @Value("${jwt.expiry}")
     private long expiry;
+
+
 
     // Authentication -> JWT
     public String generateToken(
@@ -94,6 +97,8 @@ public class JwtAuthService {
             return false;
         }
     }
+
+
 
 
     }

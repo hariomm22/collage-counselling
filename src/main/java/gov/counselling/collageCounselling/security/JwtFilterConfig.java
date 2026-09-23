@@ -1,8 +1,7 @@
-package gov.counselling.collagecounselling.config;
+package gov.counselling.collagecounselling.security;
 
-import gov.counselling.collagecounselling.auth.CustomCollageDetailsService;
+import gov.counselling.collagecounselling.auth.CustomUserAccountDetailsService;
 import gov.counselling.collagecounselling.exception.InvalidCredentialsException;
-import gov.counselling.collagecounselling.service.JwtAuthService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -21,14 +20,14 @@ import java.io.IOException;
 public class JwtFilterConfig extends OncePerRequestFilter {
 
     private final JwtAuthService jwtService;
-    private final CustomCollageDetailsService collageDetailsService;
+    private final CustomUserAccountDetailsService userAccountDetailsService;
 
     public JwtFilterConfig(
             JwtAuthService jwtService,
-            CustomCollageDetailsService collageDetailsService
+            CustomUserAccountDetailsService userAccountDetailsService
     ) {
         this.jwtService = jwtService;
-        this.collageDetailsService = collageDetailsService;
+        this.userAccountDetailsService = userAccountDetailsService;
     }
 
     @Override
@@ -60,7 +59,7 @@ public class JwtFilterConfig extends OncePerRequestFilter {
                             .getAuthentication() == null) {
 
                 UserDetails userDetails =
-                        collageDetailsService
+                        userAccountDetailsService
                                 .loadUserByUsername(username);
 
                 UsernamePasswordAuthenticationToken authentication =
@@ -76,7 +75,10 @@ public class JwtFilterConfig extends OncePerRequestFilter {
 
         } catch (JwtException | IllegalArgumentException e) {
 
+            System.out.println("JWT FILTER CATCH");
             throw new InvalidCredentialsException("Invalid Token/Credentials");
+
+
         }
         filterChain.doFilter(request, response);
     }

@@ -27,7 +27,7 @@ public class StudentMapper {
         studentResponse.setScore(student.getScore());
         studentResponse.setAllocateCollage(student.getAllocateCollage());
         studentResponse.setChoice(student.getChoice());
-        studentResponse.setStatus(student.isStatus());
+        studentResponse.setStatus(student.getStatus());
 
         return studentResponse;
     }

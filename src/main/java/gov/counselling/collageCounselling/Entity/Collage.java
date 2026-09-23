@@ -1,18 +1,18 @@
 package gov.counselling.collagecounselling.entity;
 
-
-
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-@Document
-public class Collage {
+@Document(collection = "collages")
+public class Collage extends BaseEntity{
 
     @Id
     private String id;

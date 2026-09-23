@@ -1,4 +1,4 @@
-package gov.counselling.collagecounselling.service;
+package gov.counselling.collagecounselling.security;
 
 
 import io.jsonwebtoken.Claims;
@@ -21,8 +21,11 @@ public class JwtAuthService {
     @Value("${jwt.secret}")
     private String secret;
 
+
     @Value("${jwt.expiry}")
     private long expiry;
+
+
 
     // Authentication -> JWT
     public String generateToken(
@@ -94,6 +97,8 @@ public class JwtAuthService {
             return false;
         }
     }
+
+
 
 
     }

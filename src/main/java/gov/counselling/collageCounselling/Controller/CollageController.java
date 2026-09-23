@@ -3,9 +3,10 @@ package gov.counselling.collagecounselling.controller;
 
 import gov.counselling.collagecounselling.dto.CollageRequest;
 import gov.counselling.collagecounselling.dto.CollageResponse;
-import gov.counselling.collagecounselling.service.CollageServiceImpl;
+import gov.counselling.collagecounselling.service.CollageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +15,13 @@ import java.util.List;
 @RequestMapping("collage")
 public class CollageController {
 
-    private final CollageServiceImpl collageService;
-    public CollageController(CollageServiceImpl collageService) {
+    private final CollageService collageService;
+    public CollageController(CollageService collageService) {
+
         this.collageService = collageService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<CollageResponse> createStudent(@RequestBody CollageRequest collageRequest){
          CollageResponse collageResponse = collageService.createCollage(collageRequest);
          return ResponseEntity.status(HttpStatus.CREATED).body(collageResponse);
@@ -36,6 +38,7 @@ public class CollageController {
         return ResponseEntity.status(HttpStatus.OK).body(collageService.getCollage(code));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{code}")
     public ResponseEntity<String> deleteCollage (@PathVariable String code){
         collageService.deleteCollage(code);

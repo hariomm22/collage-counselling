@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CollageLoginRequest {
+public class UserAccountLoginRequest {
 
-    private String code;
+    private String userName;
     private String password;
 }
